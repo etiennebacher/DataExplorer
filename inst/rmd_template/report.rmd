@@ -79,10 +79,12 @@ if ("plot_str" %in% names(report_config)) {
   plot_option <- report_config[["plot_str"]][setdiff(names(report_config[["plot_str"]]), c("type", "max_level", "print_network"))]
   ## Render content
   cat("### Data Structure", fill = TRUE)
-  if (report_config[["plot_str"]][["type"]] == "radial") {
-    do.call(radialNetwork, c(list("List" = str_object), plot_option))
-  } else {
-    do.call(diagonalNetwork, c(list("List" = str_object), plot_option))
+  if (knitr::is_html_output()) {
+    if (report_config[["plot_str"]][["type"]] == "radial") {
+      do.call(radialNetwork, c(list("List" = str_object), plot_option))
+    } else {
+      do.call(diagonalNetwork, c(list("List" = str_object), plot_option))
+    }
   }
 }
 ```
